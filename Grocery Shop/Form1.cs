@@ -11,7 +11,7 @@ namespace Grocery_Shop
 
         private void exitToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DialogResult userResponse = MessageBox.Show("Are you sure you want to exit?", "Exit Confirmation", 
+            DialogResult userResponse = MessageBox.Show("Are you sure you want to exit?", "Exit Confirmation",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (userResponse == DialogResult.Yes)
             {
@@ -39,10 +39,12 @@ namespace Grocery_Shop
         private void btnAdd_Click(object sender, EventArgs e)
         {
             string itemDescription = tbxItemDescription.Text;
-            double amount = double.Parse(tbxAmount.Text);
+            double amount = 0;
+            bool amountOK = double.TryParse(tbxAmount.Text, out amount);
             string unit = comboUnits.SelectedItem.ToString();
 
-            if (!string.IsNullOrEmpty(itemDescription) && amount >= 0)
+            if (!string.IsNullOrEmpty(itemDescription) && 
+                !string.IsNullOrEmpty(unit)&& amountOK)
             {
                 RemoveErrorNotifier();
                 string item = $"{itemDescription} - {amount} {unit}";
@@ -75,6 +77,7 @@ namespace Grocery_Shop
                     shoppingList.RemoveAt(index);
                     UpdateGUI();
                 }
+                
             }
             else
             {
@@ -84,12 +87,17 @@ namespace Grocery_Shop
             }
         }
 
-        
+
 
         void RemoveErrorNotifier()
         {
-            lblError.Enabled = false; 
+            lblError.Enabled = false;
             lblError.BackColor = Color.Transparent;
+        }
+
+        private void lbxShoppingList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RemoveErrorNotifier();
         }
     }
 }

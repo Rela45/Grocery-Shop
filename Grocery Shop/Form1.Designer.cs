@@ -156,6 +156,7 @@
             lbxShoppingList.Name = "lbxShoppingList";
             lbxShoppingList.Size = new Size(668, 140);
             lbxShoppingList.TabIndex = 5;
+            lbxShoppingList.SelectedIndexChanged += lbxShoppingList_SelectedIndexChanged;
             // 
             // lblError
             // 
